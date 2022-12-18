@@ -40,7 +40,8 @@ def updateMessage():
             SentDateTime: {}
             """.format(letter['Symbol'],letter['CompanyName'],letter['Title'],letter['SentDateTime'])
             send_to_telegram(message)
+            time.sleep(1000)
         lastTemp = temp
-        time.sleep(3000)
+        time.sleep(30000)
 
 updateMessage()
