@@ -1,7 +1,5 @@
 
 import requests
-import json
-import schedule
 import time
 proxy_servers = {
    'http': 'http://185.191.76.84:80',
