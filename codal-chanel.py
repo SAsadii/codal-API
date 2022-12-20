@@ -35,6 +35,8 @@ def loadAllMessages():
         TracingNo: {}
         """.format(letter['Symbol'],letter['CompanyName'],letter['Title'],letter['SentDateTime'],letter['TracingNo'])
         send_to_telegram(message)
+        time.sleep(10)
+
 
 
 
@@ -55,7 +57,6 @@ def updateMessage():
             """.format(ListTemp['Letters'][0]['Symbol'],ListTemp['Letters'][0]['CompanyName'],ListTemp['Letters'][0]['Title'],ListTemp['Letters'][0]['SentDateTime'],ListTemp['Letters'][0]['TracingNo'])
             send_to_telegram(message)
             lastTrakingNo = trakingNo
-            time.sleep(10)
         time.sleep(60)
 
 loadAllMessages()
