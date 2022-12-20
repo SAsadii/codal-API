@@ -23,25 +23,40 @@ def send_to_telegram(message):
         print(response.text)
     except Exception as e:
         print(e)
+
+
+def loadAllMessages():
+    for letter in  reversed(List['Letters']):
+        message = """Codal API
+        Symbol: {}
+        CompanyName: {}
+        Title: {}
+        SentDateTime: {}
+        TracingNo: {}
+        """.format(letter['Symbol'],letter['CompanyName'],letter['Title'],letter['SentDateTime'],letter['TracingNo'])
+        send_to_telegram(message)
+
+
+
 def updateMessage():
-    lastTemp = 0
+    lastTrakingNo = 0
     send_to_telegram("Starting Service!")
     while(True):
         response = requests.get(codalAPI, headers=headers) 
         ListTemp = response.json()
-        temp = ListTemp['Letters'][0]['Symbol']
-        for letter in ListTemp['Letters']:
-            if lastTemp == ListTemp['Letters'][0]['Symbol']:
-                break
+        trakingNo = ListTemp['Letters'][0]['TracingNo']
+        if lastTrakingNo != trakingNo:
             message = """Codal API
             Symbol: {}
             CompanyName: {}
             Title: {}
             SentDateTime: {}
-            """.format(letter['Symbol'],letter['CompanyName'],letter['Title'],letter['SentDateTime'])
+            TracingNo: {}
+            """.format(ListTemp['Letters'][0]['Symbol'],ListTemp['Letters'][0]['CompanyName'],ListTemp['Letters'][0]['Title'],ListTemp['Letters'][0]['SentDateTime'],ListTemp['Letters'][0]['TracingNo'])
             send_to_telegram(message)
+            lastTrakingNo = trakingNo
             time.sleep(10)
-        lastTemp = temp
         time.sleep(60)
 
+loadAllMessages()
 updateMessage()
