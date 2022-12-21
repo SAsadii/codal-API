@@ -50,9 +50,8 @@ def postSMS(message, phoneNo):
     res = sms.send(phoneNo, _from, message)
     print(res)
 
-
+lastTrakingNo = 0
 def getData():
-    lastTrakingNo = 0
     response = requests.get(codalAPI, headers=headers, proxies=proxy_servers) 
     codalData = response.json()
 
