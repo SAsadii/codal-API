@@ -51,7 +51,7 @@ def postSMS(message, phoneNo):
 
 
 def getData():
-    response = requests.get(codalAPI, headers=headers) 
+    response = requests.get(codalAPI, headers=headers, proxies=proxy_servers) 
     codalData = response.json()
     message = """Codal API
             Symbol: {}
