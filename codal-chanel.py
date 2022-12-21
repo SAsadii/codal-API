@@ -38,8 +38,6 @@ def loadAllMessages():
         time.sleep(10)
 
 
-
-
 def updateMessage():
     lastTrakingNo = 0
     send_to_telegram("Starting Service!")
