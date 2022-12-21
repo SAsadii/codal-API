@@ -61,8 +61,9 @@ def getData():
             SentDateTime: {}
             """.format(codalData['Letters'][0]['Symbol'],codalData['Letters'][0]['CompanyName'],codalData['Letters'][0]['Title'],codalData['Letters'][0]['SentDateTime'])
     phoneNo = getPhoneNo(codalData['Letters'][0]['Symbol'])
+    print(message)
     if phoneNo != 0 :
-        print(message)
+        print("this is ours")
         postSMS(message,phoneNo)
 
 def loadAllMessages():
@@ -75,8 +76,6 @@ def loadAllMessages():
         PhoneNo: {}
         """.format(letter['Symbol'],letter['CompanyName'],userName, phoneNo)
         print(message)
-        if phoneNo != 0 :
-            postSMS(message,phoneNo)
 
 def updateService():
     while True:
