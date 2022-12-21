@@ -52,21 +52,27 @@ def postSMS(message, phoneNo):
 
 
 def getData():
+    lastTrakingNo = 0
     response = requests.get(codalAPI, headers=headers, proxies=proxy_servers) 
     codalData = response.json()
+
     message = """Codal API
             Symbol: {}
             CompanyName: {}
             Title: {}
             SentDateTime: {}
             """.format(codalData['Letters'][0]['Symbol'],codalData['Letters'][0]['CompanyName'],codalData['Letters'][0]['Title'],codalData['Letters'][0]['SentDateTime'])
-    phoneNo, userName = getPhoneNo(codalData['Letters'][0]['Symbol'])
-    print(message)
-    send_to_telegram(message)
-    if phoneNo != 0 :
-        print("this is ours")
-        print(phoneNo)
-        postSMS(message,phoneNo)
+    
+    trakingNo = codalData['Letters'][0]['TracingNo']
+    if lastTrakingNo != trakingNo:
+        send_to_telegram(message)
+        
+        phoneNo, userName = getPhoneNo(codalData['Letters'][0]['Symbol'])  
+        if phoneNo != 0 :
+            print("this is ours")
+            print(phoneNo)
+            postSMS(message,phoneNo)
+        lastTrakingNo = trakingNo
 
 def loadAllMessages():
     for letter in  List['Letters']:
