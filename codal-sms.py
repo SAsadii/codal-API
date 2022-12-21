@@ -52,26 +52,26 @@ def postSMS(message, phoneNo):
 
 
 def getData():
-    response = requests.get(codalAPI, headers=headers, proxies=proxy_servers) 
-    codalData = response.json()
-
-    message = """Codal API
-            Symbol: {}
-            CompanyName: {}
-            Title: {}
-            SentDateTime: {}
-            """.format(codalData['Letters'][0]['Symbol'],codalData['Letters'][0]['CompanyName'],codalData['Letters'][0]['Title'],codalData['Letters'][0]['SentDateTime'])
-    
-    trakingNo = codalData['Letters'][0]['TracingNo']
-    if lastTrakingNo != trakingNo:
-        send_to_telegram(message)
-        
-        phoneNo, userName = getPhoneNo(codalData['Letters'][0]['Symbol'])  
-        if phoneNo != 0 :
-            print("this is ours")
-            print(phoneNo)
-            postSMS(message,phoneNo)
-        lastTrakingNo = trakingNo
+    lastTrakingNo = 0
+    while True:
+        response = requests.get(codalAPI, headers=headers, proxies=proxy_servers) 
+        codalData = response.json()
+        message = """Codal API
+                Symbol: {}
+                CompanyName: {}
+                Title: {}
+                SentDateTime: {}
+                """.format(codalData['Letters'][0]['Symbol'],codalData['Letters'][0]['CompanyName'],codalData['Letters'][0]['Title'],codalData['Letters'][0]['SentDateTime'])
+        trakingNo = codalData['Letters'][0]['TracingNo']
+        if lastTrakingNo != trakingNo:
+            send_to_telegram(message)
+            phoneNo, userName = getPhoneNo(codalData['Letters'][0]['Symbol'])  
+            if phoneNo != 0 :
+                print("this is ours")
+                print(phoneNo)
+                postSMS(message,phoneNo)
+            lastTrakingNo = trakingNo
+        time.sleep(60)
 
 def loadAllMessages():
     for letter in  List['Letters']:
@@ -84,9 +84,4 @@ def loadAllMessages():
         """.format(letter['Symbol'],letter['CompanyName'],userName, phoneNo)
         print(message)
 
-def updateService():
-    while True:
-        getData()
-        time.sleep(60)
-
-updateService()
+getData()
