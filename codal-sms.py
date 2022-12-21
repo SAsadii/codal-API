@@ -60,10 +60,11 @@ def getData():
             Title: {}
             SentDateTime: {}
             """.format(codalData['Letters'][0]['Symbol'],codalData['Letters'][0]['CompanyName'],codalData['Letters'][0]['Title'],codalData['Letters'][0]['SentDateTime'])
-    phoneNo = getPhoneNo(codalData['Letters'][0]['Symbol'])
+    phoneNo, userName = getPhoneNo(codalData['Letters'][0]['Symbol'])
     print(message)
     if phoneNo != 0 :
         print("this is ours")
+        print(phoneNo)
         postSMS(message,phoneNo)
 
 def loadAllMessages():
