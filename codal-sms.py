@@ -47,7 +47,8 @@ def postSMS(message, phoneNo):
     api = Api(username,password)
     sms = api.sms()
     _from = '50004001323446'
-    sms.send(phoneNo, _from, message)
+    res = sms.send(phoneNo, _from, message)
+    print(res)
 
 
 def getData():
@@ -61,6 +62,7 @@ def getData():
             """.format(codalData['Letters'][0]['Symbol'],codalData['Letters'][0]['CompanyName'],codalData['Letters'][0]['Title'],codalData['Letters'][0]['SentDateTime'])
     phoneNo = getPhoneNo(codalData['Letters'][0]['Symbol'])
     if phoneNo != 0 :
+        print(message)
         postSMS(message,phoneNo)
 
 def loadAllMessages():
