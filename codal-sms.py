@@ -62,6 +62,7 @@ def getData():
             """.format(codalData['Letters'][0]['Symbol'],codalData['Letters'][0]['CompanyName'],codalData['Letters'][0]['Title'],codalData['Letters'][0]['SentDateTime'])
     phoneNo, userName = getPhoneNo(codalData['Letters'][0]['Symbol'])
     print(message)
+    send_to_telegram(message)
     if phoneNo != 0 :
         print("this is ours")
         print(phoneNo)
