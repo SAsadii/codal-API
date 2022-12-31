@@ -65,6 +65,7 @@ def getData():
         trakingNo = codalData['Letters'][0]['TracingNo']
         if lastTrakingNo != trakingNo:
             send_to_telegram(message)
+            print("ino mizaram telegram")
             phoneNo, userName = getPhoneNo(codalData['Letters'][0]['Symbol'])  
             if phoneNo != 0 :
                 print("this is ours")
