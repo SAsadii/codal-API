@@ -69,8 +69,15 @@ def getData():
             phoneNo, userName = getPhoneNo(codalData['Letters'][0]['Symbol'])  
             if phoneNo != 0 :
                 print("this is ours")
+                sms = """
+                {}
+                {}
+                {}
+                {}
+                """.format(codalData['Letters'][0]['Symbol'], codalData['Letters'][0]['CompanyName'], codalData['Letters'][0]['Title'], codalData['Letters'][0]['SentDateTime'])
                 print(phoneNo)
-                postSMS(message,phoneNo)
+                postSMS(sms,phoneNo)
+                send_to_telegram(sms)
             lastTrakingNo = trakingNo
         time.sleep(60)
 
